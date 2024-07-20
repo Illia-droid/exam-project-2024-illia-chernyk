@@ -6,7 +6,7 @@ import {
   changeRenameCatalogMode,
   changeCatalogName,
 } from '../../../../store/slices/chatSlice';
-import styles from './CatalogHeader.module.sass';
+import styles from './CatalogListHeader.module.sass';
 import FormInput from '../../../FormInput/FormInput';
 import Schems from '../../../../utils/validators/validationSchems';
 
