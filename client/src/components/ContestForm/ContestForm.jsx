@@ -82,7 +82,7 @@ const ContestForm = (props) => {
           innerRef={props.formRef}
           enableReinitialize
         >
-          <Form>
+          <Form encType="multipart/form-data">
             <div className={styles.inputContainer}>
               <span className={styles.inputHeader}>Title of contest</span>
               <FormInput

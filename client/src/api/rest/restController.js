@@ -14,7 +14,12 @@ export const getPreviewChat = () => http.post('getPreview');
 export const getDialog = data => http.post('getChat', data);
 export const dataForContest = data => http.post('dataForContest', data);
 export const cashOut = data => http.post('cashout', data);
-export const updateUser = data => http.post('updateUser', data);
+export const updateUser = data =>
+  http.post('updateUser', data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
 export const newMessage = data => http.post('newMessage', data);
 export const changeChatFavorite = data => http.post('favorite', data);
 export const changeChatBlock = data => http.post('blackList', data);

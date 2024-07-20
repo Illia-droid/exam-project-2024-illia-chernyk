@@ -1,42 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
 import classNames from 'classnames';
-import { useField } from 'formik';
+import { useField, useFormikContext } from 'formik';
+import { useSelector } from 'react-redux';
+import CONSTANTS from '../../../constants';
 
 const ImageUpload = (props) => {
-  const [field] = useField(props.name);
+  const {
+    data: { avatar },
+  } = useSelector((state) => state.userStore);
+  const [field, , helpers] = useField(props.name);
   const { uploadContainer, inputContainer, imgStyle } = props.classes;
-  const onChange = (e) => {
-    const node = window.document.getElementById('imagePreview');
-    const file = e.target.files[0];
-    const imageType = /image.*/;
-    if (!file.type.match(imageType)) {
-      e.target.value = '';
-    } else {
-      field.onChange(file);
+  const [preview, setPreview] = useState(null);
+
+  const handleChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
       const reader = new FileReader();
-      reader.onload = () => {
-        node.src = reader.result;
+      reader.onloadend = () => {
+        setPreview(reader.result);
+        helpers.setValue(file); // Set the value of the field in Formik
       };
       reader.readAsDataURL(file);
     }
   };
+
   return (
     <div className={uploadContainer}>
       <div className={inputContainer}>
         <span>Support only images (*.png, *.gif, *.jpeg)</span>
         <input
-          {...field}
           id="fileInput"
           type="file"
           accept=".jpg, .png, .jpeg"
-          onChange={onChange}
+          onChange={handleChange}
         />
-        <label htmlFor="fileInput">Chose file</label>
+        <label htmlFor="fileInput">Choose file</label>
       </div>
       <img
-        id="imagePreview"
+        src={
+          preview ||
+          (avatar === 'anon.png'
+            ? CONSTANTS.ANONYM_IMAGE_PATH
+            : `${CONSTANTS.publicURL}${avatar}`)
+        }
         className={classNames({ [imgStyle]: !!field.value })}
-        alt="user"
+        alt={avatar}
       />
     </div>
   );

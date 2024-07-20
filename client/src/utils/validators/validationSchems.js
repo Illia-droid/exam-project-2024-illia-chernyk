@@ -133,14 +133,14 @@ const VALIDATION_SCHEMAS = {
       .string()
       .test('test-cvc', 'cvc is invalid', value => valid.cvv(value).isValid)
       .required('required'),
-    expiry: yup
-      .string()
-      .test(
-        'test-expiry',
-        'expiry is invalid',
-        value => valid.expirationDate(value).isValid
-      )
-      .required('required'),
+    // expiry: yup
+    //   .string()
+    //   .test(
+    //     'test-expiry',
+    //     'expiry is invalid',
+    //     value => valid.expirationDate(value).isValid
+    //   )
+    //   .required('required'),
   }),
   CashoutSchema: yup.object().shape({
     sum: yup.number().min(5, 'min sum is 5$').required('required'),

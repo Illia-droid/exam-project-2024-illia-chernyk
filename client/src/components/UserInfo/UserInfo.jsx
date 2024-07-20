@@ -32,7 +32,7 @@ const UserInfo = (props) => {
                 : `${CONSTANTS.publicURL}${avatar}`
             }
             className={styles.avatar}
-            alt="user"
+            alt={avatar}
           />
           <div className={styles.infoContainer}>
             <div className={styles.infoBlock}>
