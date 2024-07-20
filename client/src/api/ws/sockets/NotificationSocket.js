@@ -4,7 +4,8 @@ import WebSocket from './WebSocket';
 import Notification from '../../../components/Notification/Notification';
 
 class NotificationSocket extends WebSocket {
-  constructor (dispatch, getState, room) {
+  //eslint-disable-next-line
+  constructor(dispatch, getState, room) {
     super(dispatch, getState, room);
   }
 
