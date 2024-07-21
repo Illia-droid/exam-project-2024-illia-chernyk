@@ -87,17 +87,15 @@ const CreatorDashboard = (props) => {
       </select>
     );
   };
-
-  // componentWillReceiveProps(nextProps, nextContext) {
-  //   if (nextProps.location.search !== props.location.search) {
-  //     parseUrlForParams(nextProps.location.search);
-  //   }
-  // }
   useEffect(() => {
     props.getDataForContest();
     if (parseUrlForParams(props.location.search) && !props.contests.length)
-      getContests(props.creatorFilter); //eslint-disable-next-line
-  }, []);
+      getContests(props.creatorFilter);
+    return () => {
+      props.clearContestsList();
+    };
+  }, [props.location.search]);
+
   const getContests = (filter) => {
     props.getContests({
       limit: 8,

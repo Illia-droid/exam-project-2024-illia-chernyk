@@ -19,6 +19,7 @@ const CustomerDashboard = (props) => {
       props.clearContestsList();
     }; //eslint-disable-next-line
   }, [props.customerFilter]);
+
   const loadMore = (startFrom) => {
     props.getContests({
       limit: 8,
@@ -39,18 +40,13 @@ const CustomerDashboard = (props) => {
   };
 
   const setContestList = () => {
-    const array = [];
-    const { contests } = props;
-    for (let i = 0; i < contests.length; i++) {
-      array.push(
-        <ContestBox
-          data={contests[i]}
-          key={contests[i].id}
-          goToExtended={goToExtended}
-        />
-      );
-    }
-    return array;
+    return props.contests.map((contest) => (
+      <ContestBox
+        data={contest}
+        key={contest.id}
+        goToExtended={goToExtended}
+      />
+    ));
   };
 
   const tryToGetContest = () => {
@@ -58,7 +54,7 @@ const CustomerDashboard = (props) => {
     getContests();
   };
 
-  const { error, haveMore } = props;
+  const { error, haveMore, isFetching } = props;
   const { customerFilter } = props;
   return (
     <div className={styles.mainContainer}>
@@ -98,12 +94,11 @@ const CustomerDashboard = (props) => {
       </div>
       <div className={styles.contestsContainer}>
         {error ? (
-          <TryAgain getData={tryToGetContest()} />
+          <TryAgain getData={tryToGetContest} />
         ) : (
           <ContestsContainer
-            isFetching={props.isFetching}
+            isFetching={isFetching}
             loadMore={loadMore}
-            history={props.history}
             haveMore={haveMore}
           >
             {setContestList()}

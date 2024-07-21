@@ -1,36 +1,45 @@
-import React, { useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import styles from './ContestsContainer.module.sass';
 import Spinner from '../Spinner/Spinner';
 
 const ContestsContainer = (props) => {
+  const { isFetching, children, loadMore, haveMore } = props;
+  const observerRef = useRef();
+
   useEffect(() => {
-    window.addEventListener('scroll', scrollHandler);
-    return () => {
-      window.removeEventListener('scroll', scrollHandler);
-    }; //eslint-disable-next-line
-  }, []);
-  const scrollHandler = () => {
-    if (
-      window.innerHeight + document.documentElement.scrollTop ===
-      document.documentElement.offsetHeight
-    ) {
-      if (props.haveMore) {
-        props.loadMore(props.children.length);
-      }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && haveMore && !isFetching) {
+          loadMore(children.length);
+        }
+      },
+      { threshold: 1.0 }
+    );
+
+    if (observerRef.current) {
+      observer.observe(observerRef.current);
     }
-  };
-  const { isFetching } = props;
-  if (!isFetching && props.children.length === 0) {
-    return <div className={styles.notFound}>Nothing not found</div>;
+
+    return () => {
+      if (observerRef.current) {
+        observer.unobserve(observerRef.current);
+      }
+    };
+  }, [children.length, haveMore, isFetching, loadMore]);
+
+  if (!isFetching && children.length === 0) {
+    return <div className={styles.notFound}>Nothing found</div>;
   }
+
   return (
     <div>
-      {props.children}
+      {children}
       {isFetching && (
         <div className={styles.spinnerContainer}>
           <Spinner />
         </div>
       )}
+      <div ref={observerRef} className={styles.observer}></div>
     </div>
   );
 };
