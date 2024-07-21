@@ -13,6 +13,7 @@ const CONSTANTS = {
   OFFER_STATUS_REJECTED: 'rejected',
   OFFER_STATUS_WON: 'won',
   OFFER_STATUS_PENDING: 'pending',
+  CONTACT_PHONE: '(877)-355-3585',
   STATIC_IMAGES_PATH: '/staticImages/',
   ANONYM_IMAGE_PATH: '/staticImages/anonym.png',
   BASE_URL: `http://${serverIP}:${serverPort}/`,

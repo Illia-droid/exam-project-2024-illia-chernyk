@@ -7,7 +7,7 @@ import styles from './RegistrationPage.module.sass';
 import { clearAuthError } from '../../store/slices/authSlice';
 import CONSTANTS from '../../constants';
 
-const RegistrationPage = props => {
+const RegistrationPage = (props) => {
   props.clearError();
 
   return (
@@ -16,7 +16,7 @@ const RegistrationPage = props => {
         <div className={styles.headerSignUpPage}>
           <Logo src={`${CONSTANTS.STATIC_IMAGES_PATH}logo.png`} />
           <div className={styles.linkLoginContainer}>
-            <Link to='/login' style={{ textDecoration: 'none' }}>
+            <Link to="/login" style={{ textDecoration: 'none' }}>
               <span>Login</span>
             </Link>
           </div>
@@ -108,8 +108,8 @@ const RegistrationPage = props => {
             <div className={styles.article}>
               Check out our <span className={styles.orangeSpan}>FAQs</span> or
               send us a<span className={styles.orangeSpan}>message</span>. For
-              assistance with launching a contest, you can also call us at (877)
-              355-3585 or schedule a
+              assistance with launching a contest, you can also call us at{' '}
+              {CONSTANTS.CONTACT_PHONE} or schedule a
               <span className={styles.orangeSpan}>Branding Consultation</span>
             </div>
           </div>
@@ -119,7 +119,7 @@ const RegistrationPage = props => {
   );
 };
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   clearError: () => dispatch(clearAuthError()),
 });
 

@@ -5,6 +5,7 @@ import styles from './Header.module.sass';
 import CONSTANTS from '../../constants';
 import { clearUserStore } from '../../store/slices/userSlice';
 import { getUser } from '../../store/slices/userSlice';
+import Logo from '../Logo';
 
 const Header = (props) => {
   useEffect(() => {
@@ -109,14 +110,16 @@ const Header = (props) => {
       <div className={styles.loginSignnUpHeaders}>
         <div className={styles.numberContainer}>
           <img src={`${CONSTANTS.STATIC_IMAGES_PATH}phone.png`} alt="phone" />
-          <span>(877)&nbsp;355-3585</span>
+          <a
+            href={`tel:${CONSTANTS.CONTACT_PHONE}`}
+          >{`${CONSTANTS.CONTACT_PHONE}`}</a>
         </div>
         <div className={styles.userButtonsContainer}>
           {renderLoginButtons()}
         </div>
       </div>
       <div className={styles.navContainer}>
-        <img
+        <Logo
           src={`${CONSTANTS.STATIC_IMAGES_PATH}blue-logo.png`}
           className={styles.logo}
           alt="blue_logo"
