@@ -1,0 +1,111 @@
+.faqItem {
+  border: 1px solid #f3f5fe;
+  border-radius: 16px;
+  transition: all ease-out 0.5s;
+  margin: 0 0 16px 0;
+  color: #19184a;
+}
+
+.faqItem:hover {
+  border: 1px solid #307df6;
+  background-color: rgba(48, 125, 246, 0.1);
+}
+
+.faqContainer {
+  font-size: 20px;
+  font-weight: 700;
+  position: relative;
+  cursor: pointer;
+  border-radius: 16px;
+}
+.faqContainer::before {
+  width: 25px;
+  height: 25px;
+  content: "";
+  display: block;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 50%;
+  right: 30px;
+  margin: -12px 0 0 0;
+  background-image: url(/src/components/atomComponents/FrequentlyAskedQuestions/Question/icon-plus.svg);
+  background-position: center center;
+}
+.faqContainer h4 {
+  padding: 24px 70px 0px 24px;
+  font-size: 18px;
+  font-family: "Product Sans", sans-serif;
+  font-weight: 700;
+}
+
+.faqItemActive {
+  border-radius: 16px;
+  transition: all ease-out 0.5s;
+  margin: 0 0 16px 0;
+  background-color: #307df6;
+  color: #fff;
+  border: none;
+  overflow: hidden;
+}
+
+.wrap {
+  max-height: 0;
+  padding: 0 24px 30px 24px;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+  opacity: 0;
+}
+
+.wrap p {
+  margin: 0;
+  font-size: 16px;
+  color: #fff;
+  padding-top: 44px;
+  font-family: "Product Sans", sans-serif;
+  font-weight: 400;
+}
+
+.wrapActive {
+  max-height: 1000px; /* Достаточно большое значение */
+  opacity: 1;
+}
+
+/* .faqItem {
+  height: 100px;
+  border: 1px solid #f3f5fe;
+  border-radius: 16px;
+  transition: all ease-out 1s;
+  margin: 0 0 16px 0;
+}
+.faqItem:hover {
+  border: 1px solid #307df6;
+}
+
+.faqContainer {
+  font-size: 20px;
+  font-weight: 700;
+  color: #19184a;
+  padding: 24px 70px 24px 24px;
+  position: relative;
+  cursor: pointer;
+
+  border-radius: 16px;
+}
+.faqItemActive {
+  height: 300px;
+  border-radius: 16px;
+  transition: all ease-out 1s;
+  margin: 0 0 16px 0;
+  background-color: #307df6;
+  color: #fff;
+  border: none;
+  overflow: hidden;
+}
+.wrap {
+  display: none;
+  opacity: 0;
+}
+.wrapActive {
+  display: block;
+  opacity: 1;
+} */

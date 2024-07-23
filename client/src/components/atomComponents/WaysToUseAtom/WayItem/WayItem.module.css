@@ -1,0 +1,118 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+.itemWrapper {
+  max-width: 100%;
+  padding-right: calc(var(--bs-gutter-x) * 0.5);
+  padding-left: calc(var(--bs-gutter-x) * 0.5);
+  margin-top: var(--bs-gutter-y);
+  margin-bottom: 1.5rem;
+}
+.itemContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  margin: 0 0 30px 0;
+  padding: 25px 25px 4px 25px;
+  background: #fff;
+  box-shadow: 0 16px 32px rgb(0 0 0 / 0.04);
+  border-radius: 24px;
+  margin: 0 0 30px 0;
+}
+@media screen and (max-width: 991px) {
+  body {
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .itemContainer {
+    padding: 10px 10px;
+    text-align: center;
+    margin: 0 0 10px 0;
+  }
+}
+@media (min-width: 576px) {
+  .itemWrapper {
+    flex: 0 0 auto;
+    width: 50%;
+  }
+}
+
+@media (min-width: 768px) {
+  .itemWrapper {
+    flex: 0 0 auto;
+    width: 50%;
+  }
+}
+@media (min-width: 992px) {
+  .itemWrapper {
+    flex: 0 0 auto;
+    width: 33.33333%;
+  }
+}
+
+.icon {
+  margin: 0 0 10px 0;
+}
+
+.itemContainer h3 {
+  font-weight: 700;
+  margin: 0 0 10px 0;
+  font-size: 20px;
+  color: #000;
+}
+
+.itemContainer p {
+  margin: 0;
+  margin-bottom: 3rem;
+  color: #828282;
+}
+
+.buttonWrapper {
+  margin-bottom: 1rem;
+}
+
+.button {
+  background-color: #637cf7;
+  color: #fff;
+  border: none;
+  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  font-weight: 700;
+  padding: 13px 20px;
+  justify-content: center;
+  transition: all ease 0.3s;
+  border-radius: 8px;
+  position: relative;
+  text-decoration: none;
+}
+.button::before {
+  position: absolute;
+  content: "";
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(-45deg, #5a73ed 0%, #3d57d5 100%);
+  z-index: 0;
+  transition: all 0.5s ease;
+  opacity: 0;
+  border-radius: 8px;
+}
+
+.arrow {
+  width: 35px;
+  height: 25px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  flex-shrink: 0;
+  background-image: url(/src/components/atomComponents/WaysToUseAtom/WayItem/icon-arrow-long-right.svg);
+  margin: 0 0 0 10px;
+  transition: all ease 0.3s;
+  position: relative;
+  left: 0;
+}

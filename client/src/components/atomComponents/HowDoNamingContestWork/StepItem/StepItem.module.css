@@ -1,0 +1,73 @@
+.itemContainer {
+  margin-bottom: 1rem;
+}
+
+.item,
+.item4 {
+  height: 100%;
+  margin: 0 0 35px 0;
+  padding: 25px;
+  background: #fff;
+  box-shadow: 0 16px 32px rgb(0 0 0 / 0.04);
+  border-radius: 24px;
+  margin: 0 0 30px 0;
+  position: relative;
+  text-align: center;
+}
+
+.item::before {
+  content: "";
+  width: 28px;
+  height: 14px;
+  display: block;
+  position: absolute;
+  background-repeat: no-repeat;
+  top: 50%;
+  left: 100%;
+  z-index: 99;
+  margin: -2px 0 0 -14px;
+  background-image: url(/src/components/atomComponents/HowDoNamingContestWork/StepItem/arrow-right.svg);
+}
+
+.itemCap {
+  display: flex;
+  align-items: center;
+  margin: 0 0 15px 0;
+  justify-content: space-between;
+}
+
+.itemCap span {
+  font-size: 14px;
+  color: #fff;
+  font-weight: 700;
+  height: 32px;
+  background: #4942f3;
+  border-radius: 20px;
+  line-height: 32px;
+  padding: 0 15px;
+}
+.item p,
+.item4 p {
+  margin: 0;
+  text-align: left;
+  color: #828282;
+}
+@media (min-width: 992px) {
+  .itemContainer {
+    flex: 0 0 auto;
+    width: 25%;
+  }
+}
+@media (max-width: 992px) {
+  .itemContainer {
+    flex: 0 0 auto;
+    width: 50%;
+  }
+}
+
+@media (max-width: 576px) {
+  .itemContainer {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+}

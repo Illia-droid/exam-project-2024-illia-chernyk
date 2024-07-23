@@ -18,6 +18,7 @@ import ContestCreationPage from './pages/ContestCreation/ContestCreationPage';
 import CONSTANTS from './constants';
 import browserHistory from './browserHistory';
 import ChatContainer from './components/Chat/ChatComponents/ChatContainer/ChatContainer';
+import HowItWorksPage from './pages/HowItWorksPage/index';
 
 const App = () => {
   return (
@@ -35,6 +36,7 @@ const App = () => {
       />
       <Switch>
         <Route exact path='/' component={Home} />
+        <Route exact path='/howItWorks' component={HowItWorksPage} />
         <Route
           exact
           path='/login'

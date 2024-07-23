@@ -1,0 +1,33 @@
+* {
+  scroll-behavior: smooth;
+}
+a {
+  text-decoration: none;
+}
+.faqContainer {
+  margin-top: 30px;
+  /* text-align: center; */
+}
+.header {
+  margin: 0 0 75px 0;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  color: #19184a;
+  font-weight: 700;
+  font-family: "Product Sans", sans-serif;
+  line-height: 1.3;
+}
+
+.faqTabs {
+  max-width: 850px;
+  margin: 0px auto;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  overflow: hidden;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.04)),
+    #ffffff;
+  border-radius: 16px;
+  margin: -30px auto 0px auto;
+}

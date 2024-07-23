@@ -1,0 +1,22 @@
+.tab {
+  /* display: block; */
+  width: 25%;
+  height: 100%;
+  
+  border-radius: 16px;
+  font-size: 16px;
+  font-weight: 400;
+  padding: 13px 0px;
+  color: #343434;
+  text-align: center;
+  cursor: pointer;
+}
+.tabActive {
+  background: linear-gradient(271.19deg, #307df6 0%, #14bbbf 100%), #307ff5;
+  color: #fff;
+}
+.anchor {
+  display: block;
+  width: 100%;
+  /* height: 24px; */
+}
