@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import styles from './Header.module.sass';
 import CONSTANTS from '../../constants';
@@ -14,7 +14,8 @@ const Header = (props) => {
     }
     return () => {}; //eslint-disable-next-line
   }, []);
-
+  const { expiredEvents } = useSelector((state) => state.events);
+  const amountExpEvents = expiredEvents.length;
   const logOut = () => {
     localStorage.clear();
     props.clearUserStore();
@@ -43,6 +44,13 @@ const Header = (props) => {
               src={`${CONSTANTS.STATIC_IMAGES_PATH}menu-down.png`}
               alt="menu"
             />
+            {!!amountExpEvents && (
+              <div className={styles.bell}>
+                <img src="/bell.svg" alt="bell" />
+                <span className={styles.number}>{amountExpEvents}</span>
+              </div>
+            )}
+            {!amountExpEvents && <div className={styles.bell}></div>}
             <ul>
               <li>
                 <Link to="/dashboard" style={{ textDecoration: 'none' }}>
@@ -60,6 +68,12 @@ const Header = (props) => {
                   style={{ textDecoration: 'none' }}
                 >
                   <span>Messages</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/events" style={{ textDecoration: 'none' }}>
+                  <span>Events</span>
+                  <span>{amountExpEvents}</span>
                 </Link>
               </li>
               <li>
@@ -277,6 +291,7 @@ const Header = (props) => {
 };
 
 const mapStateToProps = (state) => state.userStore;
+
 const mapDispatchToProps = (dispatch) => ({
   getUser: () => dispatch(getUser()),
   clearUserStore: () => dispatch(clearUserStore()),

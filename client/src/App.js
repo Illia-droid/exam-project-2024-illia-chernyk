@@ -19,6 +19,7 @@ import CONSTANTS from './constants';
 import browserHistory from './browserHistory';
 import ChatContainer from './components/Chat/ChatComponents/ChatContainer/ChatContainer';
 import HowItWorksPage from './pages/HowItWorksPage/index';
+import EventsPage from './pages/EventsPage';
 
 const App = () => {
   return (
@@ -37,6 +38,7 @@ const App = () => {
       <Switch>
         <Route exact path='/' component={Home} />
         <Route exact path='/howItWorks' component={HowItWorksPage} />
+        <Route exact path='/events' component={EventsPage} />
         <Route
           exact
           path='/login'
