@@ -10,6 +10,7 @@ import {
   changeShowModeCatalog,
   clearChatError,
   getPreviewChat,
+  backToDialogList,
 } from '../../../../store/slices/chatSlice';
 import { chatController } from '../../../../api/ws/socketController';
 import CONSTANTS from '../../../../constants';
@@ -19,11 +20,18 @@ import CatalogListHeader from '../../CatalogComponents/CatalogListHeader/Catalog
 import ChatError from '../../../ChatError/ChatError';
 
 const Chat = (props) => {
+  const {
+    NORMAL_PREVIEW_CHAT_MODE,
+    FAVORITE_PREVIEW_CHAT_MODE,
+    BLOCKED_PREVIEW_CHAT_MODE,
+    CATALOG_PREVIEW_CHAT_MODE,
+  } = CONSTANTS;
   useEffect(() => {
     chatController.subscribeChat(props.userStore.data.id);
     props.getPreviewChat();
     return () => {
       chatController.unsubscribeChat(props.userStore.data.id);
+      props.backToDialogList();
     }; //eslint-disable-next-line
   }, []);
 
@@ -31,12 +39,6 @@ const Chat = (props) => {
     const { setChatPreviewMode } = props;
     const { chatMode, isShowChatsInCatalog } = props.chatStore;
     const { id } = props.userStore.data;
-    const {
-      NORMAL_PREVIEW_CHAT_MODE,
-      FAVORITE_PREVIEW_CHAT_MODE,
-      BLOCKED_PREVIEW_CHAT_MODE,
-      CATALOG_PREVIEW_CHAT_MODE,
-    } = CONSTANTS;
     return (
       <div>
         {isShowChatsInCatalog && <CatalogListHeader />}
@@ -115,6 +117,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   changeShow: () => dispatch(changeChatShow()),
+  backToDialogList: () => dispatch(backToDialogList()),
   setChatPreviewMode: (mode) => dispatch(setPreviewChatMode(mode)),
   changeShowModeCatalog: () => dispatch(changeShowModeCatalog()),
   clearChatError: () => dispatch(clearChatError()),

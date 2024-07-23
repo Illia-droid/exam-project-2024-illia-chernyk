@@ -64,6 +64,7 @@ const getDialogMessagesExtraReducers = createExtraReducers({
   fulfilledReducer: (state, { payload }) => {
     state.messages = payload.messages;
     state.interlocutor = payload.interlocutor;
+    state.isFetching = false;
   },
   rejectedReducer: (state, { payload }) => {
     state.messages = [];
@@ -84,7 +85,9 @@ export const sendMessage = decorateAsyncThunk({
 const sendMessageExtraReducers = createExtraReducers({
   thunk: sendMessage,
   fulfilledReducer: (state, { payload }) => {
+    console.log('payload', payload);
     const { messagesPreview } = state;
+    console.log('messagesPreview', messagesPreview);
     let isNew = true;
     messagesPreview.forEach(preview => {
       if (isEqual(preview.participants, payload.message.participants)) {
@@ -103,6 +106,7 @@ const sendMessageExtraReducers = createExtraReducers({
       favoriteList: payload.preview.favoriteList,
       blackList: payload.preview.blackList,
     };
+    console.log(chatData);
     state.chatData = { ...state.chatData, ...chatData };
     state.messagesPreview = messagesPreview;
     state.messages = [...state.messages, payload.message];
@@ -149,6 +153,7 @@ export const changeChatBlock = decorateAsyncThunk({
 const changeChatBlockExtraReducers = createExtraReducers({
   thunk: changeChatBlock,
   fulfilledReducer: (state, { payload }) => {
+    console.log('payload block', payload);
     const { messagesPreview } = state;
     messagesPreview.forEach(preview => {
       if (isEqual(preview.participants, payload.participants))
@@ -311,16 +316,19 @@ const changeCatalogNameExtraReducers = createExtraReducers({
 
 const reducers = {
   changeBlockStatusInStore: (state, { payload }) => {
+    console.log('payload bloc', payload);
     const { messagesPreview } = state;
     messagesPreview.forEach(preview => {
       if (isEqual(preview.participants, payload.participants))
         preview.blackList = payload.blackList;
+      // preview.favoriteList =
     });
     state.chatData = payload;
     state.messagesPreview = messagesPreview;
   },
 
   addMessage: (state, { payload }) => {
+    console.log('payload in reducer', payload);
     const { message, preview } = payload;
     const { messagesPreview } = state;
     let isNew = true;
@@ -336,7 +344,6 @@ const reducers = {
       messagesPreview.push(preview);
     }
     state.messagesPreview = messagesPreview;
-    state.messages = [...state.messages, payload.message];
   },
 
   backToDialogList: state => {

@@ -5,7 +5,8 @@ import DialogList from '../DialogList/DialogList';
 
 const DialogListContainer = (props) => {
   useEffect(() => {
-    props.getChatPreview(); //eslint-disable-next-line
+    props.getChatPreview();
+    //eslint-disable-next-line
   }, []);
 
   const { messagesPreview, userId } = props;

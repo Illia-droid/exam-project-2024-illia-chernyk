@@ -117,14 +117,14 @@ const VALIDATION_SCHEMAS = {
       .required('suggestion is required'),
   }),
   PaymentSchema: yup.object().shape({
-    number: yup
-      .string()
-      .test(
-        'test-cardNumber',
-        'Credit Card number is invalid',
-        value => valid.number(value).isValid
-      )
-      .required('required'),
+    // number: yup
+    //   .string()
+    //   .test(
+    //     'test-cardNumber',
+    //     'Credit Card number is invalid',
+    //     value => valid.number(value).isValid
+    //   )
+    //   .required('required'),
     name: yup
       .string()
       .min(1, 'required atleast one symbol')

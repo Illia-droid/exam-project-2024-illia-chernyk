@@ -20,7 +20,10 @@ export const updateUser = data =>
       'Content-Type': 'multipart/form-data',
     },
   });
-export const newMessage = data => http.post('newMessage', data);
+export const newMessage = data => {
+  // console.log(1);
+  return http.post('newMessage', data);
+};
 export const changeChatFavorite = data => http.post('favorite', data);
 export const changeChatBlock = data => http.post('blackList', data);
 export const getCatalogList = data => http.post('getCatalogs', data);

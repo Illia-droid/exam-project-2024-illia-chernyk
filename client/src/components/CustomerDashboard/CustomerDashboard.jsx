@@ -13,6 +13,7 @@ import styles from './CustomerDashboard.module.sass';
 import TryAgain from '../TryAgain/TryAgain';
 
 const CustomerDashboard = (props) => {
+  console.log(1);
   useEffect(() => {
     getContests();
     return () => {
