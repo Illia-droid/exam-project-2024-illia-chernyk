@@ -21,7 +21,6 @@ export const updateUser = data =>
     },
   });
 export const newMessage = data => {
-  // console.log(1);
   return http.post('newMessage', data);
 };
 export const changeChatFavorite = data => http.post('favorite', data);
