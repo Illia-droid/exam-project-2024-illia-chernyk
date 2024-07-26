@@ -23,7 +23,7 @@ import {
 const CHAT_SLICE_NAME = 'chat';
 
 const initialState = {
-  isFetching: true,
+  isFetching: false,
   error: null,
   addChatId: null,
   isShowCatalogCreation: false,
@@ -181,9 +181,11 @@ const extraReducers = builder => {
   builder.addCase(getPreviewChat.pending, pendingReducer);
   builder.addCase(getPreviewChat.fulfilled, (state, { payload }) => {
     state.messagesPreview = payload;
+    state.isFetching = false;
     state.error = null;
   });
   builder.addCase(getPreviewChat.rejected, (state, { payload }) => {
+    state.isFetching = false;
     state.error = payload;
     state.messagesPreview = [];
   });

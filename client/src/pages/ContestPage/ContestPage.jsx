@@ -132,7 +132,6 @@ const ContestPage = (props) => {
   } = contestByIdStore;
   return (
     <div>
-      {/* <Chat/> */}
       {isShowOnFull && (
         <LightBox
           mainSrc={`${CONSTANTS.publicURL}${imagePath}`}
@@ -151,54 +150,56 @@ const ContestPage = (props) => {
           <Spinner />
         </div>
       ) : (
-        <div className={styles.mainInfoContainer}>
-          <div className={styles.infoContainer}>
-            <div className={styles.buttonsContainer}>
-              <span
-                onClick={() => changeContestViewMode(true)}
-                className={classNames(styles.btn, {
-                  [styles.activeBtn]: isBrief,
-                })}
-              >
-                Brief
-              </span>
-              <span
-                onClick={() => changeContestViewMode(false)}
-                className={classNames(styles.btn, {
-                  [styles.activeBtn]: !isBrief,
-                })}
-              >
-                Offer
-              </span>
-            </div>
-            {isBrief ? (
-              <Brief contestData={contestData} role={role} goChat={goChat} />
-            ) : (
-              <div className={styles.offersContainer}>
-                {role === CONSTANTS.CREATOR &&
-                  contestData.status === CONSTANTS.CONTEST_STATUS_ACTIVE && (
-                    <OfferForm
-                      contestType={contestData.contestType}
-                      contestId={contestData.id}
-                      customerId={contestData.User.id}
+        contestData && (
+          <div className={styles.mainInfoContainer}>
+            <div className={styles.infoContainer}>
+              <div className={styles.buttonsContainer}>
+                <span
+                  onClick={() => changeContestViewMode(true)}
+                  className={classNames(styles.btn, {
+                    [styles.activeBtn]: isBrief,
+                  })}
+                >
+                  Brief
+                </span>
+                <span
+                  onClick={() => changeContestViewMode(false)}
+                  className={classNames(styles.btn, {
+                    [styles.activeBtn]: !isBrief,
+                  })}
+                >
+                  Offer
+                </span>
+              </div>
+              {isBrief ? (
+                <Brief contestData={contestData} role={role} goChat={goChat} />
+              ) : (
+                <div className={styles.offersContainer}>
+                  {role === CONSTANTS.CREATOR &&
+                    contestData.status === CONSTANTS.CONTEST_STATUS_ACTIVE && (
+                      <OfferForm
+                        contestType={contestData.contestType}
+                        contestId={contestData.id}
+                        customerId={contestData.User.id}
+                      />
+                    )}
+                  {setOfferStatusError && (
+                    <Error
+                      data={setOfferStatusError.data}
+                      status={setOfferStatusError.status}
+                      clearError={clearSetOfferStatusError}
                     />
                   )}
-                {setOfferStatusError && (
-                  <Error
-                    data={setOfferStatusError.data}
-                    status={setOfferStatusError.status}
-                    clearError={clearSetOfferStatusError}
-                  />
-                )}
-                <div className={styles.offers}>{setOffersList()}</div>
-              </div>
-            )}
+                  <div className={styles.offers}>{setOffersList()}</div>
+                </div>
+              )}
+            </div>
+            <ContestSideBar
+              contestData={contestData}
+              totalEntries={offers.length}
+            />
           </div>
-          <ContestSideBar
-            contestData={contestData}
-            totalEntries={offers.length}
-          />
-        </div>
+        )
       )}
     </div>
   );

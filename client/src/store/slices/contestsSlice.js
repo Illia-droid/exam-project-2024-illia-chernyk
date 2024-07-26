@@ -6,7 +6,7 @@ import { decorateAsyncThunk, pendingReducer } from '../../utils/store';
 const CONTESTS_SLICE_NAME = 'contests';
 
 const initialState = {
-  isFetching: true,
+  isFetching: false,
   error: null,
   contests: [],
   customerFilter: CONSTANTS.CONTEST_STATUS_ACTIVE,
@@ -71,10 +71,7 @@ const contestsSlice = createSlice({
 
 const { actions, reducer } = contestsSlice;
 
-export const {
-  clearContestsList,
-  setNewCustomerFilter,
-  setNewCreatorFilter,
-} = actions;
+export const { clearContestsList, setNewCustomerFilter, setNewCreatorFilter } =
+  actions;
 
 export default reducer;
