@@ -10,7 +10,7 @@ export const downloadContestFile = data =>
   http.get(`downloadFile/${data.fileName}`);
 export const payMent = data => http.post('pay', data.formData);
 export const changeMark = data => http.post('changeMark', data);
-export const getPreviewChat = () => http.post('getPreview');
+export const fetchGetPreviewChat = () => http.post('getPreview');
 export const getDialog = data => http.post('getChat', data);
 export const dataForContest = data => http.post('dataForContest', data);
 export const cashOut = data => http.post('cashout', data);
@@ -23,15 +23,17 @@ export const updateUser = data =>
 export const newMessage = data => {
   return http.post('newMessage', data);
 };
-export const changeChatFavorite = data => http.post('favorite', data);
-export const changeChatBlock = data => http.post('blackList', data);
-export const getCatalogList = data => http.post('getCatalogs', data);
-export const addChatToCatalog = data => http.post('addNewChatToCatalog', data);
-export const createCatalog = data => http.post('createCatalog', data);
-export const deleteCatalog = data => http.post('deleteCatalog', data);
-export const removeChatFromCatalog = data =>
+export const fetchChangeChatFavorite = data => http.post('favorite', data);
+export const fetchChangeChatBlock = data => http.post('blackList', data);
+export const fetchGetCatalogList = data => http.post('getCatalogs', data);
+export const fetchAddChatToCatalog = data =>
+  http.post('addNewChatToCatalog', data);
+export const fetchCreateCatalog = data => http.post('createCatalog', data);
+export const fetchDeleteCatalog = data => http.post('deleteCatalog', data);
+export const fetchRemoveChatFromCatalog = data =>
   http.post('removeChatFromCatalog', data);
-export const changeCatalogName = data => http.post('updateNameCatalog', data);
+export const fetchChangeCatalogName = data =>
+  http.post('updateNameCatalog', data);
 export const getCustomersContests = data =>
   http.post(
     'getCustomersContests',
