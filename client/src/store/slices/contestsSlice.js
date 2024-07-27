@@ -1,12 +1,15 @@
-import { createSlice } from '@reduxjs/toolkit';
-import * as restController from '../../api/rest/restController';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import {
+  getCustomersContests,
+  getActiveContests,
+} from '../../api/rest/restController';
 import CONSTANTS from '../../constants';
-import { decorateAsyncThunk, pendingReducer } from '../../utils/store';
+import { pendingReducer, rejectedReducer } from '../../utils/store';
 
 const CONTESTS_SLICE_NAME = 'contests';
 
 const initialState = {
-  isFetching: true,
+  isFetching: false,
   error: null,
   contests: [],
   customerFilter: CONSTANTS.CONTEST_STATUS_ACTIVE,
@@ -20,16 +23,16 @@ const initialState = {
   haveMore: true,
 };
 
-export const getContests = decorateAsyncThunk({
-  key: `${CONTESTS_SLICE_NAME}/getContests`,
-  thunk: async ({ requestData, role }) => {
+export const getContests = createAsyncThunk(
+  `${CONTESTS_SLICE_NAME}/getContests`,
+  async ({ requestData, role }) => {
     const { data } =
       role === CONSTANTS.CUSTOMER
-        ? await restController.getCustomersContests(requestData)
-        : await restController.getActiveContests(requestData);
+        ? await getCustomersContests(requestData)
+        : await getActiveContests(requestData);
     return data;
-  },
-});
+  }
+);
 
 const reducers = {
   clearContestsList: state => {
@@ -55,11 +58,7 @@ const extraReducers = builder => {
     state.contests = [...state.contests, ...payload.contests];
     state.haveMore = payload.haveMore;
   });
-  builder.addCase(getContests.rejected, (state, { payload }) => {
-    state.isFetching = false;
-    state.error = payload;
-    state.contests = [];
-  });
+  builder.addCase(getContests.rejected, rejectedReducer);
 };
 
 const contestsSlice = createSlice({
@@ -71,10 +70,7 @@ const contestsSlice = createSlice({
 
 const { actions, reducer } = contestsSlice;
 
-export const {
-  clearContestsList,
-  setNewCustomerFilter,
-  setNewCreatorFilter,
-} = actions;
+export const { clearContestsList, setNewCustomerFilter, setNewCreatorFilter } =
+  actions;
 
 export default reducer;

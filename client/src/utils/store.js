@@ -26,19 +26,6 @@ export const decorateAsyncThunk = ({ key, thunk }) => {
   return createAsyncThunk(key, async (payload, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
-      return await thunk(payload, thunkAPI);
-    } catch (err) {
-      return rejectWithValue({
-        data: err?.response?.data ?? 'Gateway Timeout',
-        status: err?.response?.status ?? 504,
-      });
-    }
-  });
-};
-
-export const decorateAsyncThunk1 = ({ key, thunk }) => {
-  return createAsyncThunk(key, async (payload, { rejectWithValue }) => {
-    try {
       const { data } = await thunk(payload);
       return data;
     } catch (err) {
@@ -49,6 +36,7 @@ export const decorateAsyncThunk1 = ({ key, thunk }) => {
     }
   });
 };
+
 /**
  * Create extra reducers for async thunk
  * @param {Object} extraReducersOptions - options

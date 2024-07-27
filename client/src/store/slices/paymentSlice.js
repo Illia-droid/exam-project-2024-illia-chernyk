@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
-import * as restController from '../../api/rest/restController';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import {payMent,fetchCashOut} from '../../api/rest/restController';
 import { clearContestStore } from './contestCreationSlice';
 import { changeProfileViewMode } from './userProfileSlice';
 import { updateUser } from './userSlice';
@@ -18,23 +18,23 @@ const initialState = {
   focusOnElement: 'number',
 };
 
-export const pay = decorateAsyncThunk({
-  key: `${PAYMENT_SLICE_NAME}/pay`,
-  thunk: async ({ data, history }, { dispatch }) => {
-    await restController.payMent(data);
+export const pay = createAsyncThunk(
+  `${PAYMENT_SLICE_NAME}/pay`,
+  async ({ data, history }, { dispatch }) => {
+    await payMent(data);
     history.replace('dashboard');
     dispatch(clearContestStore());
-  },
-});
+  }
+);
 
-export const cashOut = decorateAsyncThunk({
-  key: `${PAYMENT_SLICE_NAME}/cashOut`,
-  thunk: async (payload, { dispatch }) => {
-    const { data } = await restController.cashOut(payload);
+export const cashOut = createAsyncThunk(
+  `${PAYMENT_SLICE_NAME}/cashOut`,
+  async (payload, { dispatch }) => {
+    const { data } = await fetchCashOut(payload);
     dispatch(updateUser.fulfilled(data));
     dispatch(changeProfileViewMode(CONSTANTS.USER_INFO_MODE));
-  },
-});
+  }
+);
 
 const reducers = {
   changeFocusOnCard: (state, { payload }) => {
