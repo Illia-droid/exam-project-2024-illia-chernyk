@@ -1,0 +1,19 @@
+{
+  "description": [
+    {
+      "id": 1,
+      "title": "Yes",
+      "content": "The Domain should exactly match the name"
+    },
+    {
+      "id": 2,
+      "title": "Yes",
+      "content": "But minor variations are allowed (Recommended)"
+    },
+    {
+      "id": 3,
+      "title": "No",
+      "content": "I am only looking for the name"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+.blocksGroup {
+  display: flex;
+}
+
+@media screen and (max-width: 1200px) {
+  .blocksGroup {
+    flex-direction: column;
+  }
+}
