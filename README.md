@@ -23,4 +23,4 @@ Created and rendered the Events Page using redux/toolkit, added a bell with the 
 
 
 **7 TASK**
-*Created a message.mongodb file with a request to DB to find and count words "паровоз" in collection Message using aggregate*
+*Created a message.mongodb file with a request to DB NO-SQL to find and count words "паровоз" in collection Message using aggregate*
