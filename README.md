@@ -12,3 +12,15 @@ Fixed sending messages, rendering in chat, fixed smooth scrolling to the last me
 Created and rendered the Events Page using redux/toolkit, added a bell with the number of expired events
 
 ----> All that's left is adaptation and validation
+
+
+
+
+
+
+
+
+
+
+**7 TASK**
+*Created a message.mongodb file with a request to DB to find and count words "паровоз" in collection Message using aggregate*
