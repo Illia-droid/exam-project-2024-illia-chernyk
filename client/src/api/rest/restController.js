@@ -9,12 +9,12 @@ export const fetchSetOfferStatus = data => http.post('setOfferStatus', data);
 export const downloadContestFile = data =>
   http.get(`downloadFile/${data.fileName}`);
 export const payMent = data => http.post('pay', data.formData);
-export const fetchChangeMark = data => http.post('changeMark', data);
+export const changeMark = data => http.post('changeMark', data);
 export const fetchGetPreviewChat = () => http.post('getPreview');
 export const getDialog = data => http.post('getChat', data);
 export const dataForContest = data => http.post('dataForContest', data);
-export const fetchCashOut = data => http.post('cashout', data);
-export const fetchUpdateUser = data =>
+export const cashOut = data => http.post('cashout', data);
+export const updateUser = data =>
   http.post('updateUser', data, {
     headers: {
       'Content-Type': 'multipart/form-data',

@@ -15,7 +15,7 @@ import {
 } from '../../api/rest/restController';
 import CONSTANTS from '../../constants';
 import {
-  decorateAsyncThunk,
+  decorateAsyncThunk1,
   rejectedReducer,
   pendingReducer,
 } from '../../utils/store';
@@ -23,7 +23,7 @@ import {
 const CHAT_SLICE_NAME = 'chat';
 
 const initialState = {
-  isFetching: false,
+  isFetching: true,
   error: null,
   addChatId: null,
   isShowCatalogCreation: false,
@@ -41,57 +41,57 @@ const initialState = {
   catalogCreationMode: CONSTANTS.ADD_CHAT_TO_OLD_CATALOG,
 };
 
-export const getPreviewChat = decorateAsyncThunk({
+export const getPreviewChat = decorateAsyncThunk1({
   key: `${CHAT_SLICE_NAME}/getPreviewChat`,
   thunk: fetchGetPreviewChat,
 });
 
-export const getDialogMessages = decorateAsyncThunk({
+export const getDialogMessages = decorateAsyncThunk1({
   key: `${CHAT_SLICE_NAME}/getDialogMessages`,
   thunk: getDialog,
 });
 
-export const sendMessage = decorateAsyncThunk({
+export const sendMessage = decorateAsyncThunk1({
   key: `${CHAT_SLICE_NAME}/sendMessage`,
   thunk: newMessage,
 });
 
-export const changeChatFavorite = decorateAsyncThunk({
+export const changeChatFavorite = decorateAsyncThunk1({
   key: `${CHAT_SLICE_NAME}/changeChatFavorite`,
   thunk: fetchChangeChatFavorite,
 });
 
-export const changeChatBlock = decorateAsyncThunk({
+export const changeChatBlock = decorateAsyncThunk1({
   key: `${CHAT_SLICE_NAME}/changeChatBlock`,
   thunk: fetchChangeChatBlock,
 });
 
-export const getCatalogList = decorateAsyncThunk({
+export const getCatalogList = decorateAsyncThunk1({
   key: `${CHAT_SLICE_NAME}/getCatalogList`,
   thunk: fetchGetCatalogList,
 });
 
-export const addChatToCatalog = decorateAsyncThunk({
+export const addChatToCatalog = decorateAsyncThunk1({
   key: `${CHAT_SLICE_NAME}/addChatToCatalog`,
   thunk: fetchAddChatToCatalog,
 });
 
-export const createCatalog = decorateAsyncThunk({
+export const createCatalog = decorateAsyncThunk1({
   key: `${CHAT_SLICE_NAME}/createCatalog`,
   thunk: fetchCreateCatalog,
 });
 
-export const deleteCatalog = decorateAsyncThunk({
+export const deleteCatalog = decorateAsyncThunk1({
   key: `${CHAT_SLICE_NAME}/deleteCatalog`,
   thunk: fetchDeleteCatalog,
 });
 
-export const removeChatFromCatalog = decorateAsyncThunk({
+export const removeChatFromCatalog = decorateAsyncThunk1({
   key: `${CHAT_SLICE_NAME}/removeChatFromCatalog`,
   thunk: fetchRemoveChatFromCatalog,
 });
 
-export const changeCatalogName = decorateAsyncThunk({
+export const changeCatalogName = decorateAsyncThunk1({
   key: `${CHAT_SLICE_NAME}/changeCatalogName`,
   thunk: fetchChangeCatalogName,
 });
@@ -111,24 +111,23 @@ const reducers = {
   addMessage: (state, { payload }) => {
     const { message, preview } = payload;
     const { messagesPreview } = state;
-
-    const existingPreview = messagesPreview.find(preview =>
-      isEqual(preview.participants, message.participants)
-    );
-
-    if (existingPreview) {
-      existingPreview.text = message.body;
-      existingPreview.sender = message.sender;
-      existingPreview.createAt = message.createdAt;
-    } else {
+    let isNew = true;
+    messagesPreview.map(preview => {
+      if (isEqual(preview.participants, message.participants)) {
+        preview.text = message.body;
+        preview.sender = message.sender;
+        preview.createAt = message.createdAt;
+        isNew = false;
+      }
+    });
+    if (isNew) {
       messagesPreview.push(preview);
     }
+    state.messagesPreview = messagesPreview;
   },
-
   backToDialogList: state => {
     state.isExpanded = false;
   },
-
   goToExpandedDialog: (state, { payload }) => {
     state.interlocutor = { ...state.interlocutor, ...payload.interlocutor };
     state.chatData = payload.conversationData;
@@ -136,39 +135,31 @@ const reducers = {
     state.isExpanded = true;
     state.messages = [];
   },
-
   clearMessageList: state => {
     state.messages = [];
   },
-
   changeChatShow: state => {
     state.isShowCatalogCreation = false;
     state.isShow = !state.isShow;
   },
-
   setPreviewChatMode: (state, { payload }) => {
     state.chatMode = payload;
   },
-
   changeShowModeCatalog: (state, { payload }) => {
     state.currentCatalog = { ...state.currentCatalog, ...payload };
     state.isShowChatsInCatalog = !state.isShowChatsInCatalog;
     state.isRenameCatalog = false;
   },
-
   changeTypeOfChatAdding: (state, { payload }) => {
     state.catalogCreationMode = payload;
   },
-
   changeShowAddChatToCatalogMenu: (state, { payload }) => {
     state.addChatId = payload;
     state.isShowCatalogCreation = !state.isShowCatalogCreation;
   },
-
   changeRenameCatalogMode: state => {
     state.isRenameCatalog = !state.isRenameCatalog;
   },
-
   clearChatError: state => {
     state.error = null;
   },
@@ -180,11 +171,9 @@ const extraReducers = builder => {
   builder.addCase(getPreviewChat.pending, pendingReducer);
   builder.addCase(getPreviewChat.fulfilled, (state, { payload }) => {
     state.messagesPreview = payload;
-    state.isFetching = false;
     state.error = null;
   });
   builder.addCase(getPreviewChat.rejected, (state, { payload }) => {
-    state.isFetching = false;
     state.error = payload;
     state.messagesPreview = [];
   });
@@ -347,9 +336,7 @@ const chatSlice = createSlice({
   reducers,
   extraReducers,
 });
-
 const { actions, reducer } = chatSlice;
-
 export const {
   changeBlockStatusInStore,
   addMessage,
@@ -364,5 +351,4 @@ export const {
   changeRenameCatalogMode,
   clearChatError,
 } = actions;
-
 export default reducer;

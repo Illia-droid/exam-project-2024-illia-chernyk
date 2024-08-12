@@ -10,7 +10,7 @@ import DialogList from '../../DialogComponents/DialogList/DialogList';
 const CatalogListContainer = (props) => {
   const { catalogList, isShowChatsInCatalog } = props.chatStore;
   const { id } = props.userStore.data;
-  
+
   useEffect(() => {
     props.getCatalogList(); //eslint-disable-next-line
   }, [catalogList]);
@@ -20,7 +20,6 @@ const CatalogListContainer = (props) => {
     props.removeChatFromCatalog({ chatId, catalogId: _id });
     event.stopPropagation();
   };
-
   const getDialogsPreview = () => {
     const { messagesPreview, currentCatalog } = props.chatStore;
     const { chats } = currentCatalog;
